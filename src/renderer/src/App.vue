@@ -28,20 +28,4 @@ async function launchMinecraft(): Promise<void> {
       class="mt-4"
     />
   </section>
-  <div class="flex flex-col max-w-lg gap-4 p-4 mx-4 mt-8 border border-gray-200 rounded-md">
-    <label for="path">Path</label>
-    <input
-      id="path"
-      v-model="profilePath"
-      type="text"
-      placeholder="/home/anthocodes99/.minecraft/skyfactory5"
-    />
-    <p>{{ profileData }}</p>
-    <button
-      class="px-4 py-2 max-w-sm bg-green-500 hover:bg-green-400 hover:cursor-pointer transition delay-200 rounded-md"
-      @click="launchMinecraft"
-    >
-      Launch Minecraft
-    </button>
-  </div>
 </template>
