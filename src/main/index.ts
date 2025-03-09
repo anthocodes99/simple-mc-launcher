@@ -5,6 +5,7 @@ import * as fs from 'node:fs/promises'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { readProfileFromFile } from './profile-handler'
 import { PathLike } from 'node:fs'
+import { launchMinecraft } from './launcher'
 // import icon from '../../resources/icon.png?asset'
 
 const createProfilesFolder = async function ({ path = __dirname }: { path?: string } = {}) {
@@ -80,6 +81,10 @@ app.whenReady().then(() => {
   ipcMain.handle('getProfile', async (event, filePath: PathLike) => {
     if (!filePath) return 'no.'
     return readProfileFromFile(filePath)
+  })
+  ipcMain.handle('launchMinecraft', async (event) => {
+    console.log('something')
+    launchMinecraft()
   })
 
   createWindow()

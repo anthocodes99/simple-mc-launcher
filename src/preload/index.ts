@@ -1,6 +1,7 @@
 import { contextBridge, ipcRenderer } from 'electron'
 import { electronAPI } from '@electron-toolkit/preload'
 import { PathLike } from 'node:fs'
+import { launchMinecraft } from '../main/launcher'
 
 // Custom APIs for renderer
 const api = {}
@@ -13,7 +14,8 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electron', electronAPI)
     contextBridge.exposeInMainWorld('api', api)
     contextBridge.exposeInMainWorld('electronAPI', {
-      getProfile: (filePath: PathLike) => ipcRenderer.invoke('getProfile', filePath)
+      getProfile: (filePath: PathLike) => ipcRenderer.invoke('getProfile', filePath),
+      launchMinecraft: () => ipcRenderer.invoke('launchMinecraft')
     })
   } catch (error) {
     console.error(error)
