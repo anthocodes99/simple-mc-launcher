@@ -1,0 +1,28 @@
+## Business Logic
+- [X] Profiles Reader
+- [ ] Settings Reader
+- [ ] Get Minecraft Versions
+- [ ] Default Initialization
+- [ ] Login/Authentication
+
+## CRUD
+- [ ] Create
+- [X] Read
+- [ ] Update
+- [ ] Delete
+
+## Views
+
+### Home
+- [x] Profiles List
+- [ ] Create Profile
+- [ ] Delete Profile
+- [ ] Duplicate Profile
+
+### Settings
+- [ ]
+
+## Checks
+- [ ] Is Java installed?
+- [ ] Is Minecraft folder valid?
+- [ ]
