@@ -6,6 +6,7 @@ import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import { readProfileFromFile, readProfiles } from './profile-handler'
 import { PathLike } from 'node:fs'
 import { launchMinecraft } from './launcher'
+import { Profile } from '../types/profile'
 // import icon from '../../resources/icon.png?asset'
 
 const createProfilesFolder = async function ({ path = __dirname }: { path?: string } = {}) {
@@ -78,13 +79,13 @@ app.whenReady().then(() => {
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
   // ipcMain.handle('getProfile', (filePath: PathLike) => readProfileFromFile(filepath))
-  ipcMain.handle('getProfile', async (event, filePath: PathLike) => {
+  ipcMain.handle('getProfile', async (_event, filePath: PathLike) => {
     if (!filePath) return 'no.'
     return readProfileFromFile(filePath)
   })
-  ipcMain.handle('launchMinecraft', async (event) => {
+  ipcMain.handle('launchMinecraft', async (_event, args: Profile) => {
     console.log('something')
-    launchMinecraft()
+    launchMinecraft(args)
   })
   ipcMain.handle('loadProfiles', async (_event, folderPath: PathLike) => {
     console.log('loadProfiles')

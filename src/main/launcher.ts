@@ -1,20 +1,17 @@
 import { Client, Authenticator } from 'minecraft-launcher-core'
 
-export function launchMinecraft(): void {
+// https://www.npmjs.com/package/minecraft-launcher-core
+// https://github.com/Pierce01/MinecraftLauncher-core
+
+export function launchMinecraft(profileOptionsString: string): void {
   console.log('IM LAUNCHING MINECRAFT')
   const launcher = new Client()
+  const profileOptions = JSON.parse(profileOptionsString)
   const opts = {
     authorization: Authenticator.getAuth('anthocodes99'),
-    root: './minecraft',
-    version: {
-      number: '1.21.4',
-      type: 'release'
-    },
-    memory: {
-      max: '6G',
-      min: '4G'
-    }
+    ...profileOptions
   }
+  console.log({ opts })
   launcher.launch(opts)
   launcher.on('debug', (e) => console.log(e))
   launcher.on('package-extract', (e) => console.log(e))
