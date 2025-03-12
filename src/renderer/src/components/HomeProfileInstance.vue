@@ -1,19 +1,37 @@
 <script setup lang="ts">
+import { toRefs } from 'vue'
 import HomeProfileEditDialog from './HomeProfileEditDialog.vue'
 import HomeProfileInstanceDropdown from './HomeProfileInstanceDropdown.vue'
 import { DialogTrigger } from 'reka-ui'
-interface Props {
-  profileName: string
-  version: string
-  dateLastPlayed: number
+
+// FIXME: 1 source of truth
+interface Profile {
+  name: string
   icon: string
-  profile: string // TODO: update this later
+  options: {
+    root: string
+    version: {
+      number: string
+      custom?: string
+      type: 'releease' | 'snapshot'
+    }
+    customLaunchArgs?: string
+    memory: {
+      max: string
+      min: string
+    }
+  }
+}
+
+interface Props {
+  profile: Profile // TODO: update this later
 }
 
 const props = defineProps<Props>()
+const { profile } = toRefs(props)
 
-function launchMinecraft(): void {
-  // TODO: implement
+async function launchMinecraft(): Promise<void> {
+  await window.electronAPI.launchMinecraft(JSON.stringify(profile.value.options))
 }
 </script>
 
@@ -22,10 +40,10 @@ function launchMinecraft(): void {
     <HomeProfileEditDialog>
       <div class="flex justify-between">
         <div class="flex items-center gap-8">
-          <span class="text-2xl">{{ icon }}</span>
+          <span class="text-2xl">{{ profile.icon }}</span>
           <div>
-            <h2 class="text-2xl font-bold">{{ profileName }}</h2>
-            <p class="text-[#999999] font-light">{{ version }}</p>
+            <h2 class="text-2xl font-bold">{{ profile.name }}</h2>
+            <p class="text-[#999999] font-light">{{ profile.options.version.number }}</p>
           </div>
         </div>
         <div class="w-6 h-6 hover:cursor-pointer">
