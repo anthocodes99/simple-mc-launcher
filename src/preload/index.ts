@@ -16,6 +16,7 @@ if (process.contextIsolated) {
     contextBridge.exposeInMainWorld('electronAPI', {
       getProfile: (filePath: PathLike) => ipcRenderer.invoke('getProfile', filePath),
       launchMinecraft: () => ipcRenderer.invoke('launchMinecraft')
+      loadProfiles: (folderPath: PathLike) => ipcRenderer.invoke('loadProfiles', folderPath)
     })
   } catch (error) {
     console.error(error)

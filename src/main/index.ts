@@ -3,7 +3,7 @@ import { join } from 'path'
 // import * as fsSync from 'node:fs'
 import * as fs from 'node:fs/promises'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
-import { readProfileFromFile } from './profile-handler'
+import { readProfileFromFile, readProfiles } from './profile-handler'
 import { PathLike } from 'node:fs'
 import { launchMinecraft } from './launcher'
 // import icon from '../../resources/icon.png?asset'
@@ -85,6 +85,10 @@ app.whenReady().then(() => {
   ipcMain.handle('launchMinecraft', async (event) => {
     console.log('something')
     launchMinecraft()
+  })
+  ipcMain.handle('loadProfiles', async (_event, folderPath: PathLike) => {
+    console.log('loadProfiles')
+    return readProfiles(folderPath)
   })
 
   createWindow()
