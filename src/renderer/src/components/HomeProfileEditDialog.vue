@@ -7,7 +7,16 @@ import {
   DialogRoot,
   DialogTitle
 } from 'reka-ui'
+
+import type { Profile } from '@customTypes/profile'
+import { toRefs } from 'vue'
+
 // import { Icon } from '@iconify/vue'
+interface Props {
+  profile: Profile
+}
+const props = defineProps<Props>()
+const { name, icon, dateLastPlayed, options } = toRefs(props.profile)
 </script>
 
 <template>
@@ -22,23 +31,80 @@ import {
       >
         <DialogTitle class="text-mauve12 m-0 text-[17px] font-semibold"> Edit Profile</DialogTitle>
         <fieldset class="mt-8 mb-[15px] flex items-center gap-5">
-          <label class="text-grass11 w-[90px] text-right text-sm" for="Version"> Version </label>
+          <label class="text-grass11 w-[90px] text-right text-sm" for="name"> Name </label>
           <input
             id="name"
             class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-            defaultValue="1.21.4-fabric-0.16.10"
+            :value="name"
+          />
+        </fieldset>
+        <!-- TODO: Implemnet icon selector -->
+        <fieldset class="mb-[15px] flex items-center gap-5">
+          <label class="text-grass11 w-[90px] text-right text-sm" for="version"> Version </label>
+          <input
+            id="version"
+            class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+            :value="options.version.custom ?? options.version.number"
           />
         </fieldset>
         <fieldset class="mb-[15px] flex items-center gap-5">
-          <label class="text-grass11 w-[90px] text-right text-sm" for="username">
+          <label class="text-grass11 w-[90px] text-right text-sm" for="root">
             Game Directory
           </label>
           <input
-            id="username"
+            id="root"
             class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
-            defaultValue="/home/anthocodes99/.minecraft/minecraft-1.21.4-fabric"
+            :value="options.root"
           />
         </fieldset>
+        <fieldset class="mb-[15px] flex items-center gap-5">
+          <label class="text-grass11 w-[90px] text-right text-sm" for="customLaunchArgs">
+            Custom Launch Arguments
+          </label>
+          <input
+            id="customLaunchArgs"
+            class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+            :value="options.customLaunchArgs"
+          />
+        </fieldset>
+        <div class="border border-[#999999] rounded-sm py-2 pr-4 mb-[15px]">
+          <fieldset class="flex items-center gap-5">
+            <legend class="pl-5">Memory</legend>
+            <label class="text-grass11 w-[90px] text-right text-sm" for="minMemory"> Min </label>
+            <input
+              id="minMemory"
+              class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+              :value="options.memory.min"
+            />
+            <label class="text-grass11 w-[90px] text-right text-sm" for="maxMemory"> Max</label>
+            <input
+              id="maxMemory"
+              class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+              :value="options.memory.max"
+            />
+          </fieldset>
+        </div>
+        <div class="border border-[#999999] rounded-sm py-2 pr-4 mb-[15px]">
+          <fieldset class="flex items-center gap-5">
+            <legend class="pl-5">Window</legend>
+            <label class="text-grass11 w-[90px] text-right text-sm" for="windowWidth">
+              Width
+            </label>
+            <input
+              id="windowWidth"
+              class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+              :value="options.window.width"
+            />
+            <label class="text-grass11 w-[90px] text-right text-sm" for="windowHeight">
+              Height</label
+            >
+            <input
+              id="windowHeight"
+              class="text-grass11 bg-[#2F2F2F] shadow-green7 focus:shadow-green8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-lg px-[10px] text-sm leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
+              :value="options.window.height"
+            />
+          </fieldset>
+        </div>
         <div class="mt-[25px] flex justify-end">
           <DialogClose as-child>
             <button
@@ -52,7 +118,14 @@ import {
           class="text-grass11 hover:bg-green4 focus:shadow-green7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
           aria-label="Close"
         >
-          <!-- <Icon icon="lucide:x" /> -->
+          <svg class="w-6 h-6" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12.8536 2.85355C13.0488 2.65829 13.0488 2.34171 12.8536 2.14645C12.6583 1.95118 12.3417 1.95118 12.1464 2.14645L7.5 6.79289L2.85355 2.14645C2.65829 1.95118 2.34171 1.95118 2.14645 2.14645C1.95118 2.34171 1.95118 2.65829 2.14645 2.85355L6.79289 7.5L2.14645 12.1464C1.95118 12.3417 1.95118 12.6583 2.14645 12.8536C2.34171 13.0488 2.65829 13.0488 2.85355 12.8536L7.5 8.20711L12.1464 12.8536C12.3417 13.0488 12.6583 13.0488 12.8536 12.8536C13.0488 12.6583 13.0488 12.3417 12.8536 12.1464L8.20711 7.5L12.8536 2.85355Z"
+              fill="currentColor"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
         </DialogClose>
       </DialogContent>
     </DialogPortal>

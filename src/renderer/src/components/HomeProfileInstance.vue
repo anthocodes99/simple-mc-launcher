@@ -20,7 +20,7 @@ async function launchMinecraft(): Promise<void> {
 
 <template>
   <div class="max-w-sm mx-auto bg-[#2F2F2F] border border-[#999999] rounded-md px-6 py-6">
-    <HomeProfileEditDialog>
+    <HomeProfileEditDialog :profile>
       <div class="flex justify-between">
         <div class="flex items-center gap-8">
           <span class="text-2xl">{{ profile.icon }}</span>
