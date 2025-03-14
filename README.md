@@ -1,34 +1,39 @@
-# mclc-app
+# Simple Minecraft Launcher
 
-An Electron application with Vue and TypeScript
+> [!WARNING]
+> This is a work in progress! Nothing works at the moment.
 
-## Recommended IDE Setup
+Launches Minecraft.
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin)
+## Build
 
-## Project Setup
+1. Clone the project
 
-### Install
-
-```bash
-$ pnpm install
+```
+git clone https://github.com/anthocodes99/simple-mc-launcher.git
 ```
 
-### Development
+2. Install packages
 
-```bash
-$ pnpm dev
+```
+pnpm install
 ```
 
-### Build
+3. Build for your distro
 
-```bash
-# For windows
-$ pnpm build:win
-
-# For macOS
-$ pnpm build:mac
-
-# For Linux
-$ pnpm build:linux
+_Windows_
 ```
+pnpm build:win
+```
+
+_Linux_
+```
+pnpm build:linux
+```
+
+_macOS_
+```
+pnpm build:mac
+```
+
+The application output is in `/dist`
