@@ -4,27 +4,10 @@ import HomeProfileEditDialog from './HomeProfileEditDialog.vue'
 import HomeProfileInstanceDropdown from './HomeProfileInstanceDropdown.vue'
 import { DialogTrigger } from 'reka-ui'
 
-// FIXME: 1 source of truth
-interface Profile {
-  name: string
-  icon: string
-  options: {
-    root: string
-    version: {
-      number: string
-      custom?: string
-      type: 'releease' | 'snapshot'
-    }
-    customLaunchArgs?: string
-    memory: {
-      max: string
-      min: string
-    }
-  }
-}
+import type { Profile } from '@customTypes/profile'
 
 interface Props {
-  profile: Profile // TODO: update this later
+  profile: Profile
 }
 
 const props = defineProps<Props>()
